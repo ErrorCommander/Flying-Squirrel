@@ -1,23 +1,21 @@
 using GameResources.Services.Input;
+using UnityEngine;
 using Zenject;
 
 namespace GameResources.General.Infrastructure
 {
    public class Game
    {
-      private IInputService _inputService;
-      private DiContainer _container;
+      public readonly GameStateMachine StateMachine;
+      public readonly ICoroutineRunner CoroutineRunner;
+      
+      private static DiContainer _container;
 
-      public Game(DiContainer container)
+      public Game(DiContainer container, ICoroutineRunner coroutineRunner)
       {
          _container = container;
-         RegisterInputService();
-      }
-
-      private void RegisterInputService()
-      {
-         _inputService = new EditorInputServiceService();
-         _container.Bind<IInputService>().FromInstance(_inputService).AsSingle().NonLazy();
+         CoroutineRunner = coroutineRunner;
+         StateMachine = new GameStateMachine(new SceneLoader(coroutineRunner));
       }
    }
 }
