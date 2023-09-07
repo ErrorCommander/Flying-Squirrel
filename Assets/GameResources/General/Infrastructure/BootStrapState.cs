@@ -19,13 +19,11 @@ namespace GameResources.General.Infrastructure
 
       public void Exit()
       {
-         
       }
 
       private void LoadLevel()
       {
-         _stateMachine.Enter<LoadSceneState>();
+         _stateMachine.Enter<LoadSceneState, string>("Game");
       }
-
    }
 }
