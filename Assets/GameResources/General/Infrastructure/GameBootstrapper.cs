@@ -10,7 +10,7 @@ namespace GameResources.General.Infrastructure
 
       private void Awake()
       {
-         _game = new Game(this);
+         _game = new Game(this, _container);
          _game.StateMachine.Enter<BootStrapState>();
 
          DontDestroyOnLoad(this);

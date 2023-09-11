@@ -18,9 +18,8 @@ namespace GameResources.General.Infrastructure
       
       private IEnumerator LoadScene(string name, Action onLoad = null)
       {
-         SceneManager.LoadSceneAsync(name);
-         
-         yield return null;
+         yield return SceneManager.LoadSceneAsync(name);
+         onLoad?.Invoke();
       }
    }
 }

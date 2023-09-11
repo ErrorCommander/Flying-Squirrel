@@ -23,7 +23,7 @@ namespace GameResources.General.Infrastructure
 
       private void LoadLevel()
       {
-         _stateMachine.Enter<LoadSceneState, string>("Game");
+         _stateMachine.Enter<LoadGameState, string>("Game");
       }
    }
 }

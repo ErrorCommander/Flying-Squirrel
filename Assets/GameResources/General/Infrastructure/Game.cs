@@ -1,3 +1,5 @@
+using Zenject;
+
 namespace GameResources.General.Infrastructure
 {
    public class Game
@@ -5,10 +7,10 @@ namespace GameResources.General.Infrastructure
       public readonly GameStateMachine StateMachine;
       public readonly ICoroutineRunner CoroutineRunner;
 
-      public Game(ICoroutineRunner coroutineRunner)
+      public Game(ICoroutineRunner coroutineRunner, DiContainer container)
       {
          CoroutineRunner = coroutineRunner;
-         StateMachine = new GameStateMachine(new SceneLoader(coroutineRunner));
+         StateMachine = new GameStateMachine(new SceneLoader(coroutineRunner), container);
       }
    }
 }
