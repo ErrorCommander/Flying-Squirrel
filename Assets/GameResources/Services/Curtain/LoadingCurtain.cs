@@ -11,6 +11,8 @@ namespace GameResources.Services.Curtain
       [SerializeField, Range(0, 2)] private float _fadeDuration = 0.5f;
       [SerializeField] private Slider _slider;
       [SerializeField] private TMP_Text _progressText;
+      
+      private Tweener _fade;
 
       private void Awake()
       {
@@ -19,14 +21,16 @@ namespace GameResources.Services.Curtain
 
       public void Show()
       {
-         _canvasGroup.DOFade(1, _fadeDuration);
+         _fade.Kill();
+         _fade = _canvasGroup.DOFade(1, _fadeDuration);
          _canvasGroup.blocksRaycasts = true;
          SetProgress(0);
       }
 
       public void Hide()
       {
-         _canvasGroup.DOFade(0, _fadeDuration);
+         _fade.Kill();
+         _fade = _canvasGroup.DOFade(0, _fadeDuration);
          _canvasGroup.blocksRaycasts = false;
       }
 
