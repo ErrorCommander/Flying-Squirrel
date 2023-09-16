@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using GameResources.Services.Curtain;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,10 +9,12 @@ namespace GameResources.General.Infrastructure
    public class SceneLoader
    {
       private readonly ICoroutineRunner _coroutineRunner;
-      
-      public SceneLoader(ICoroutineRunner coroutineRunner)
+      private readonly IProgressCurtain _progressCurtain;
+
+      public SceneLoader(ICoroutineRunner coroutineRunner, IProgressCurtain progressCurtain)
       {
          _coroutineRunner = coroutineRunner;
+         _progressCurtain = progressCurtain;
       }
 
       public void Load(string name, Action onLoad = null)
@@ -22,8 +25,15 @@ namespace GameResources.General.Infrastructure
 
       private IEnumerator LoadScene(string name, Action onLoad = null)
       {
-         yield return SceneManager.LoadSceneAsync(name);
+         _progressCurtain.Show();
+         var loadScene = SceneManager.LoadSceneAsync(name);
+         while (!loadScene.isDone)
+         {
+            yield return null;
+            _progressCurtain.SetProgress(loadScene.progress);
+         }
          onLoad?.Invoke();
+         _progressCurtain.Hide();
       }
    }
 }

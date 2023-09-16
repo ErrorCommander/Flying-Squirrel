@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using GameResources.Services.Factory;
-using Zenject;
+using UnityEngine;
 
 namespace GameResources.General.Infrastructure
 {
@@ -10,12 +10,12 @@ namespace GameResources.General.Infrastructure
       private readonly Dictionary<Type, IExitableState> _states;
       private IExitableState _activeState;
  
-      public GameStateMachine(SceneLoader sceneLoader, DiContainer container, GameFactory gameFactory)
+      public GameStateMachine(SceneLoader sceneLoader, IGameFactory gameFactory)
       {
          _states = new ()
          {
             [typeof(BootStrapState)] = new BootStrapState(this, sceneLoader),
-            [typeof(LoadGameState)] = new LoadGameState(sceneLoader, container, gameFactory)
+            [typeof(LoadGameState)] = new LoadGameState(sceneLoader, gameFactory)
          };
       }
 
@@ -35,6 +35,7 @@ namespace GameResources.General.Infrastructure
       {
          _activeState?.Exit();
          TState state = GetState<TState>();
+         Debug.Log($"GameStateMachine -> Enter to <color=#00ff00>{typeof(TState).Name}</color>");
          _activeState = state;
          return state;
       }

@@ -1,18 +1,14 @@
-using GameResources.Services.AssetProvider;
 using GameResources.Services.Factory;
-using Zenject;
 
 namespace GameResources.General.Infrastructure
 {
    public class Game
    {
       public readonly GameStateMachine StateMachine;
-      public readonly ICoroutineRunner CoroutineRunner;
 
-      public Game(ICoroutineRunner coroutineRunner, DiContainer container, IAssetProvider assetProvider)
+      public Game(SceneLoader sceneLoader, IGameFactory gameFactory)
       {
-         CoroutineRunner = coroutineRunner;
-         StateMachine = new GameStateMachine(new SceneLoader(coroutineRunner), container, new GameFactory(assetProvider));
+         StateMachine = new GameStateMachine(sceneLoader, gameFactory);
       }
    }
 }

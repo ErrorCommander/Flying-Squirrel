@@ -14,11 +14,6 @@ namespace GameResources.Services.Curtain
       
       private Tweener _fade;
 
-      private void Awake()
-      {
-         DontDestroyOnLoad(gameObject);
-      }
-
       public void Show()
       {
          _fade.Kill();
