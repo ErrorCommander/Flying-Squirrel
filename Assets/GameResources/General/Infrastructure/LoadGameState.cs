@@ -1,5 +1,6 @@
 using Cinemachine;
 using GameResources.Player;
+using GameResources.Services.Factory;
 using UnityEngine;
 using Zenject;
 
@@ -9,11 +10,18 @@ namespace GameResources.General.Infrastructure
    {
       private readonly SceneLoader _sceneLoader;
       private readonly DiContainer _container;
+      private readonly IGameFactory _gameFactory;
 
-      public LoadGameState(SceneLoader sceneLoader, DiContainer container)
+      public LoadGameState(SceneLoader sceneLoader, DiContainer container, IGameFactory gameFactory)
       {
          _sceneLoader = sceneLoader;
          _container = container;
+         _gameFactory = gameFactory;
+      }
+
+      public DiContainer container
+      {
+         get { return _container; }
       }
 
       public void Enter(string name)
@@ -29,26 +37,14 @@ namespace GameResources.General.Infrastructure
       private void OnLoaded()
       {
          Debug.Log("On Loaded");
-         var hero = Instantiate<PlayerMove>("Game/Hero");
-         var followCamera = Instantiate<CinemachineVirtualCamera>("Game/FollowCamera");
+         var hero = _gameFactory.Instantiate<PlayerMove>("Game/Hero");
+         var followCamera = _gameFactory.Instantiate<CinemachineVirtualCamera>("Game/FollowCamera");
          followCamera.Follow = hero.transform;
          
          if (Application.isMobilePlatform || Application.isEditor)
          {
-            Instantiate("Game/MobileInput");
+            _gameFactory.Instantiate("Game/MobileInput");
          }
-      }
-      
-      private TValue Instantiate<TValue>(string path) where TValue : Component
-      {
-         var heroPrefab = Resources.Load<TValue>(path);
-         return _container.InstantiatePrefabForComponent<TValue>(heroPrefab);
-      }
-      
-      private GameObject Instantiate(string path)
-      {
-         var heroPrefab = Resources.Load<GameObject>(path);
-         return Object.Instantiate(heroPrefab);
       }
    }
 }

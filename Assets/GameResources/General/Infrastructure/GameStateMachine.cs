@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using GameResources.Services.Factory;
 using Zenject;
 
 namespace GameResources.General.Infrastructure
@@ -9,12 +10,12 @@ namespace GameResources.General.Infrastructure
       private readonly Dictionary<Type, IExitableState> _states;
       private IExitableState _activeState;
  
-      public GameStateMachine(SceneLoader sceneLoader, DiContainer container)
+      public GameStateMachine(SceneLoader sceneLoader, DiContainer container, GameFactory gameFactory)
       {
          _states = new ()
          {
             [typeof(BootStrapState)] = new BootStrapState(this, sceneLoader),
-            [typeof(LoadGameState)] = new LoadGameState(sceneLoader, container)
+            [typeof(LoadGameState)] = new LoadGameState(sceneLoader, container, gameFactory)
          };
       }
 

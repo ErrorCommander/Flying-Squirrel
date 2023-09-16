@@ -13,8 +13,11 @@ namespace GameResources.General.Infrastructure
 
       public void Enter()
       {
+#if UNITY_EDITOR
+         _sceneLoader.Load("Initial", LoadLevel);
+#else
          LoadLevel();
-         //_sceneLoader.Load("Initial", LoadLevel);
+#endif
       }
 
       public void Exit()
