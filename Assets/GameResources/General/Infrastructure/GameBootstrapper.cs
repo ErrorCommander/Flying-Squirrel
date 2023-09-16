@@ -1,3 +1,5 @@
+using GameResources.Services.AssetProvider;
+using GameResources.Services.Factory;
 using UnityEngine;
 using Zenject;
 
@@ -10,7 +12,7 @@ namespace GameResources.General.Infrastructure
 
       private void Awake()
       {
-         _game = new Game(this, _container);
+         _game = new Game(this, _container, new AssetProvider(_container));
          _game.StateMachine.Enter<BootStrapState>();
 
          DontDestroyOnLoad(this);

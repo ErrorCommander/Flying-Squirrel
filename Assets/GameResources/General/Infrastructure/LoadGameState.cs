@@ -36,14 +36,14 @@ namespace GameResources.General.Infrastructure
 
       private void OnLoaded()
       {
-         Debug.Log("On Loaded");
-         var hero = _gameFactory.Instantiate<PlayerMove>("Game/Hero");
-         var followCamera = _gameFactory.Instantiate<CinemachineVirtualCamera>("Game/FollowCamera");
+         Debug.Log("Game Loaded");
+         var hero = _gameFactory.CreateHero();
+         var followCamera = _gameFactory.CreateFollowCamera();
          followCamera.Follow = hero.transform;
          
          if (Application.isMobilePlatform || Application.isEditor)
          {
-            _gameFactory.Instantiate("Game/MobileInput");
+            _gameFactory.CreateMobileJoystick();
          }
       }
    }

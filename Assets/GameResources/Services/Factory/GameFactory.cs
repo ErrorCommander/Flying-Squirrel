@@ -1,39 +1,32 @@
+using Cinemachine;
+using GameResources.Player;
+using GameResources.Services.AssetProvider;
 using UnityEngine;
-using Zenject;
 
 namespace GameResources.Services.Factory
 {
    public class GameFactory : IGameFactory
    {
-      private readonly DiContainer _container;
+      private readonly IAssetProvider _assetProvider;
 
-      public GameFactory(DiContainer container)
+      public GameFactory(IAssetProvider assetProvider)
       {
-         _container = container;
+         _assetProvider = assetProvider;
       }
 
-      public TValue Instantiate<TValue>(string path, Transform parent = null) where TValue : Component
+      public PlayerMove CreateHero()
       {
-         var heroPrefab = Resources.Load<TValue>(path);
-         return _container.InstantiatePrefabForComponent<TValue>(heroPrefab, parent);
+         return _assetProvider.InstantiateAs<PlayerMove>(AssetPath.HERO_PATH);
       }
 
-      public TValue Instantiate<TValue>(string path, Vector3 at, Transform parent = null) where TValue : Component
+      public CinemachineVirtualCamera CreateFollowCamera()
       {
-         var heroPrefab = Resources.Load<TValue>(path);
-         return _container.InstantiatePrefabForComponent<TValue>(heroPrefab, at, Quaternion.identity, parent);
+         return _assetProvider.InstantiateAs<CinemachineVirtualCamera>(AssetPath.CAMERA_PATH);
       }
 
-      public GameObject Instantiate(string path, Transform parent = null)
+      public GameObject CreateMobileJoystick()
       {
-         var heroPrefab = Resources.Load<GameObject>(path);
-         return Object.Instantiate(heroPrefab, parent);
-      }
-
-      public GameObject Instantiate(string path, Vector3 at, Transform parent = null)
-      {
-         var heroPrefab = Resources.Load<GameObject>(path);
-         return Object.Instantiate(heroPrefab, at, Quaternion.identity, parent);
+         return _assetProvider.Instantiate(AssetPath.MOBILE_JOYSTICK_PATH);
       }
    }
 }
