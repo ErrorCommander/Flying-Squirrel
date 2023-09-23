@@ -7,11 +7,13 @@ namespace CodeBase.Infrastructure
    {
       private readonly SceneLoader _sceneLoader;
       private readonly IGameFactory _gameFactory;
+      private readonly IUIFactory _uiFactory;
 
-      public LoadGameState(SceneLoader sceneLoader, IGameFactory gameFactory)
+      public LoadGameState(SceneLoader sceneLoader, IGameFactory gameFactory, IUIFactory uiFactory)
       {
          _sceneLoader = sceneLoader;
          _gameFactory = gameFactory;
+         _uiFactory = uiFactory;
       }
 
       public void Enter(string name)
@@ -30,7 +32,7 @@ namespace CodeBase.Infrastructure
 
          if (Application.isMobilePlatform || Application.isEditor)
          {
-            _gameFactory.CreateMobileJoystick();
+            _uiFactory.CreateMobileJoystick();
          }
 
          Debug.Log("Game Loaded");

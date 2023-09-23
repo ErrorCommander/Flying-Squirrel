@@ -8,7 +8,5 @@ namespace CodeBase.Services.Factory
    {
       PlayerMove CreateHero();
       CinemachineVirtualCamera CreateFollowCamera(Transform target);
-      GameObject CreateMobileJoystick();
-      GameObject CreateMainMenu();
    }
 }

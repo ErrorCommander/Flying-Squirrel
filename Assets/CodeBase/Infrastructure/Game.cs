@@ -6,9 +6,9 @@ namespace CodeBase.Infrastructure
    {
       public readonly GameStateMachine StateMachine;
 
-      public Game(SceneLoader sceneLoader, IGameFactory gameFactory)
+      public Game(SceneLoader sceneLoader, IGameFactory gameFactory, IUIFactory uiFactory)
       {
-         StateMachine = new GameStateMachine(sceneLoader, gameFactory);
+         StateMachine = new GameStateMachine(sceneLoader, gameFactory, uiFactory);
       }
    }
 }

@@ -9,14 +9,14 @@ namespace CodeBase.Infrastructure
    {
       private readonly Dictionary<Type, IExitableState> _states;
       private IExitableState _activeState;
- 
-      public GameStateMachine(SceneLoader sceneLoader, IGameFactory gameFactory)
+
+      public GameStateMachine(SceneLoader sceneLoader, IGameFactory gameFactory, IUIFactory uiFactory)
       {
-         _states = new ()
+         _states = new()
          {
             [typeof(BootStrapState)] = new BootStrapState(this, sceneLoader),
-            [typeof(LoadMenuState)] = new LoadMenuState(sceneLoader, gameFactory),
-            [typeof(LoadGameState)] = new LoadGameState(sceneLoader, gameFactory)
+            [typeof(LoadMenuState)] = new LoadMenuState(sceneLoader, gameFactory, uiFactory),
+            [typeof(LoadGameState)] = new LoadGameState(sceneLoader, gameFactory, uiFactory)
          };
       }
 

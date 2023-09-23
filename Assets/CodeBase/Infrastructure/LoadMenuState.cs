@@ -8,11 +8,13 @@ namespace CodeBase.Infrastructure
       
       private readonly SceneLoader _sceneLoader;
       private readonly IGameFactory _gameFactory;
+      private readonly IUIFactory _uiFactory;
 
-      public LoadMenuState(SceneLoader sceneLoader, IGameFactory gameFactory)
+      public LoadMenuState(SceneLoader sceneLoader, IGameFactory gameFactory, IUIFactory uiFactory)
       {
          _sceneLoader = sceneLoader;
          _gameFactory = gameFactory;
+         _uiFactory = uiFactory;
       }
 
       public void Enter()
@@ -26,7 +28,7 @@ namespace CodeBase.Infrastructure
 
       private void OnLoaded()
       {
-         _gameFactory.CreateMainMenu();
+         _uiFactory.CreateMenu(WindowType.MainMenu);
       }
    }
 }

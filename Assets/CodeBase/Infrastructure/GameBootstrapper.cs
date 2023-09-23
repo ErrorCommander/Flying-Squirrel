@@ -17,6 +17,7 @@ namespace CodeBase.Infrastructure
       {
          RegisterAssetProvider();
          RegisterGameFactory();
+         RegisterUIFactory();
          RegisterCoroutineRunner();
          RegisterLoadingCurtain();
          RegisterSceneLoader();
@@ -37,9 +38,9 @@ namespace CodeBase.Infrastructure
                   .AsSingle()
                   .NonLazy();
 
-      private void RegisterCoroutineRunner() => 
-         Container.Bind<ICoroutineRunner>()
-                  .FromInstance(this)
+      private void RegisterAssetProvider() => 
+         Container.Bind<IAssetProvider>()
+                  .To<AssetProvider>()
                   .AsSingle()
                   .NonLazy();
 
@@ -49,21 +50,27 @@ namespace CodeBase.Infrastructure
                   .AsSingle()
                   .NonLazy();
 
-      private void RegisterSceneLoader() => 
-         Container.Bind<SceneLoader>()
-                  .To<SceneLoader>()
+      private void RegisterUIFactory() => 
+         Container.Bind<IUIFactory>()
+                  .To<UIFactory>()
                   .AsSingle()
                   .NonLazy();
 
-      private void RegisterAssetProvider() => 
-         Container.Bind<IAssetProvider>()
-                  .To<AssetProvider>()
+      private void RegisterCoroutineRunner() => 
+         Container.Bind<ICoroutineRunner>()
+                  .FromInstance(this)
                   .AsSingle()
                   .NonLazy();
 
       private void RegisterLoadingCurtain() => 
          Container.Bind<IProgressCurtain>()
                   .FromInstance(_progressCurtain)
+                  .AsSingle()
+                  .NonLazy();
+
+      private void RegisterSceneLoader() => 
+         Container.Bind<SceneLoader>()
+                  .To<SceneLoader>()
                   .AsSingle()
                   .NonLazy();
 
