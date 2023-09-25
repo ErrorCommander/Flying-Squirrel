@@ -6,7 +6,7 @@ namespace CodeBase.Services.Factory
 {
    public interface IGameFactory
    {
-      PlayerMove CreateHero();
+      HeroMove CreateHero();
       CinemachineVirtualCamera CreateFollowCamera(Transform target);
    }
 }

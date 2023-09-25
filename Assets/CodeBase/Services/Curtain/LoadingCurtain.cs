@@ -11,8 +11,13 @@ namespace CodeBase.Services.Curtain
       [SerializeField, Range(0, 2)] private float _fadeDuration = 0.5f;
       [SerializeField] private Slider _slider;
       [SerializeField] private TMP_Text _progressText;
-      
+
       private Tweener _fade;
+
+      private void Awake()
+      {
+         DontDestroyOnLoad(this);
+      }
 
       public void Show()
       {

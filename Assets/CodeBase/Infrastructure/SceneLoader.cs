@@ -40,8 +40,8 @@ namespace CodeBase.Infrastructure
             yield return null;
             _progressCurtain.SetProgress(loadScene.progress);
          }
-         _progressCurtain.Hide();
          yield return new WaitForSecondsRealtime(0.2f);
+         _progressCurtain.Hide();
          onLoad?.Invoke();
       }
    }

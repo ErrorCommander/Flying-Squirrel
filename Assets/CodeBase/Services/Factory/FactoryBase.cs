@@ -1,4 +1,4 @@
-using CodeBase.Services.AssetProvider;
+using CodeBase.Services.Asset;
 using UnityEngine;
 using Zenject;
 

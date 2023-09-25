@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using CodeBase.Services.Factory;
 using UnityEngine;
 
-namespace CodeBase.Infrastructure
+namespace CodeBase.Infrastructure.States
 {
    public class GameStateMachine
    {

@@ -1,6 +1,5 @@
-using System;
-using CodeBase.Infrastructure;
-using CodeBase.Services.AssetProvider;
+using CodeBase.Services.Asset;
+using CodeBase.Services.Curtain;
 using CodeBase.UI;
 using UnityEngine;
 using Zenject;
@@ -11,23 +10,23 @@ namespace CodeBase.Services.Factory
    {
       public UIFactory(DiContainer container, IAssetProvider assetProvider) : base(container, assetProvider){}
 
-      public GameObject CreateMobileJoystick() => 
-         Instantiate(AssetPath.MOBILE_JOYSTICK_PATH);
+      public GameObject CreateMobileJoystick() => Instantiate(AssetPath.MOBILE_JOYSTICK);
 
       public GameObject CreateMenu(WindowType windowType)
       {
-         if (windowType == WindowType.Unknown || !Enum.IsDefined(typeof(WindowType), windowType))
-            return null;
-
-         string path = windowType switch
+         switch (windowType)
          {
-            WindowType.MainMenu => AssetPath.MAIN_MENU_PATH,
-            _ => ""
-         };
+            case WindowType.MainMenu:
+               return Instantiate<LoadGameButton>(AssetPath.MAIN_MENU).With(m => Inject(m)).gameObject;
+            default:
+               return null;
+         }
+      }
 
-         return Instantiate<LoadGameButton>(AssetPath.MAIN_MENU_PATH)
-                .With(m => Inject(m))
-                .gameObject;
+      public LoadingCurtain CreateLoadingCurtain()
+      {
+         Debug.Log("LoadingCurtain");
+         return Instantiate<LoadingCurtain>(AssetPath.LOADING_CURTAIN);
       }
    }
 }

@@ -1,4 +1,5 @@
-using CodeBase.Services.AssetProvider;
+using CodeBase.Infrastructure.States;
+using CodeBase.Services.Asset;
 using CodeBase.Services.Curtain;
 using CodeBase.Services.Factory;
 using CodeBase.Services.Input;
@@ -9,8 +10,6 @@ namespace CodeBase.Infrastructure
 {
    public class GameBootstrapper : MonoInstaller, ICoroutineRunner
    {
-      [SerializeField] private LoadingCurtain _progressCurtain;
-      
       private Game _game;
 
       public override void InstallBindings()
@@ -64,10 +63,15 @@ namespace CodeBase.Infrastructure
 
       private void RegisterLoadingCurtain() => 
          Container.Bind<IProgressCurtain>()
-                  .FromInstance(_progressCurtain)
+                  .FromMethod(Create)
                   .AsSingle()
                   .NonLazy();
 
+      private IProgressCurtain Create(InjectContext context)
+      {
+         return context.Container.Resolve<IUIFactory>().CreateLoadingCurtain();
+      }
+      
       private void RegisterSceneLoader() => 
          Container.Bind<SceneLoader>()
                   .To<SceneLoader>()

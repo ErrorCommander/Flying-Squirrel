@@ -1,3 +1,5 @@
+using CodeBase.Services.Curtain;
+using CodeBase.UI;
 using UnityEngine;
 
 namespace CodeBase.Services.Factory
@@ -6,11 +8,6 @@ namespace CodeBase.Services.Factory
    {
       GameObject CreateMobileJoystick();
       GameObject CreateMenu(WindowType windowType);
-   }
-
-   public enum WindowType
-   {
-      Unknown = 0,
-      MainMenu = 1
+      LoadingCurtain CreateLoadingCurtain();
    }
 }

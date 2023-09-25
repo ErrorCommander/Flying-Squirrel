@@ -1,7 +1,7 @@
 using CodeBase.Services.Factory;
 using UnityEngine;
 
-namespace CodeBase.Infrastructure
+namespace CodeBase.Infrastructure.States
 {
    public class LoadGameState : IPayloadState<string>
    {

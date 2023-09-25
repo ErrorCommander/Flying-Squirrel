@@ -1,6 +1,7 @@
 using CodeBase.Services.Factory;
+using CodeBase.UI;
 
-namespace CodeBase.Infrastructure
+namespace CodeBase.Infrastructure.States
 {
    public class LoadMenuState : IState
    {

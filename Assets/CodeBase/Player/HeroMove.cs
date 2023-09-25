@@ -1,18 +1,23 @@
-using CodeBase.Common;
 using CodeBase.Services.Input;
 using UnityEngine;
 using Zenject;
 
 namespace CodeBase.Player
 {
-   public class PlayerMove : MonoBehaviour
+   public class HeroMove : MonoBehaviour
    {
       [Min(0)] public float Speed = 2f;
          
       [SerializeField] private Rigidbody2D _rigidbody;
       
-      [Inject] private IInputService _input;
+      private IInputService _input;
 
+      [Inject]
+      private void Construct(IInputService input)
+      {
+         _input = input;
+      }
+       
       private void Update()
       {
          if(_input == null)
