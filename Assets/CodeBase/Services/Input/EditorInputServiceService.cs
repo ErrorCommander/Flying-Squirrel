@@ -18,6 +18,7 @@ namespace CodeBase.Services.Input
          }
       }
 
-      public override bool JumpPressed() => GetUiInputJump() || GetUnityJump();
+      public override bool JumpPressed() => GetUiInputJumpPressed() || GetUnityJumpPressed();
+      public override bool JumpDown() => GetUiInputJumpDown() || GetUnityJumpDown();
    }
 }
